@@ -30,22 +30,28 @@ const Sidebar = () => {
         <div className="bg-primary-300 p-8 rounded-tr-[100px] h-[70vh] flex flex-col justify-between gap-8">
           <nav className="flex flex-col gap-8">
             <a
-              href="#"
+              href="/"
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
               <RiHome3Line /> Dashboard
             </a>
             <a
-              href="#"
+              href="/history"
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
               <RiWalletLine /> Historial
             </a>
             <a
-              href="#"
+              href="/reports"
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
               <RiPieChartLine /> Reportes
+            </a>
+            <a
+              href="#"
+              className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
+            >
+              <RiPieChartLine /> Cerrar Sesión
             </a>
           </nav>
           <div className="bg-primary-900/50 text-white p-4 rounded-xl">
