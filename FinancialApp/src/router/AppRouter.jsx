@@ -1,14 +1,14 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
-import { LoginPage, RegisterPage, HomePage, ReportsPage, TransactionsPage, DashboardPage  } from '../pages';
+import { LoginPage, RegisterPage, HomePage, ReportsPage, TransactionsPage, DashboardPage, AuthPage, Logout, Profile  } from '../pages';
 
 export const AppRouter = () => {
   return (
     <Routes>
-         <Route path="/auth" element={<Navbar/>} >
-            <Route index element={<LoginPage/>} />
-            <Route path="login" element={<LoginPage/>} />
-            <Route path="register" element={<RegisterPage/>} />
+         <Route path="/nav" element={<Navbar/>} >
+            <Route index element={<Profile/>} />
+            <Route path="login" element={<AuthPage/>} />
+            <Route path="register" element={<Logout/>} />
         </Route>
         <Route path="/" element={<HomePage/>}>
             <Route index element={<DashboardPage/>} />

@@ -9,8 +9,8 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const navigation = [
-  { name: 'Iniciar Sesión', href: '/auth/login', current: false },
-  { name: 'Registrarse', href: '/auth/register', current: false },
+  { name: 'Iniciar Sesión', href: '/login', current: false },
+  { name: 'Registrarse', href: '/register', current: false },
 ]
 
 function classNames(...classes) {

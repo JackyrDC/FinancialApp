@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 // Icons
 import {
   RiHome3Line,
@@ -10,7 +11,9 @@ import {
 } from "react-icons/ri";
 
 const Sidebar = () => {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu ] = useState(false);
+  const { user, isAuthenticated, isLoading, logout } = useAuth0();
+
   return (
     <>
       <div
@@ -21,10 +24,10 @@ const Sidebar = () => {
         {/* Profile */}
         <div className="flex flex-col items-center justify-center p-8 gap-2 h-[30vh]">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTii3hM5abJEj_Zu0wumINDLGvHaT-MZaesc9dj-gXSUg&s"
+            src={user.picture}
             className="w-20 h-20 object-cover rounded-full ring-2 ring-gray-300"
           />
-          <h1 className="text-xl text-white font-bold">Miguel Zelaya</h1>
+          <h1 className="text-xl text-white font-bold">{user.name}</h1>
         </div>
         {/* Nav */}
         <div className="bg-primary-300 p-8 rounded-tr-[100px] h-[70vh] flex flex-col justify-between gap-8">
@@ -48,7 +51,7 @@ const Sidebar = () => {
               <RiPieChartLine /> Reportes
             </a>
             <a
-              href="#"
+              href="" onClick={() => logout({ returnTo: window.location.origin})}
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
               <RiPieChartLine /> Cerrar Sesión
