@@ -4,11 +4,9 @@ import { Navbar } from './components/Navbar';
 import { AuthPage, Logout, Profile  } from './pages'
 
 function App() {
-  const { isAuthenticated } = useAuth0();
-  if (isAuthenticated) {
-  return <AppRouter />
-} else { 
-  return <AuthPage />
-}}
+  return (
+    <AppRouter />
+  );
+}
 
 export default App;
