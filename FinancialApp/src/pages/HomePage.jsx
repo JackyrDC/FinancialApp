@@ -23,7 +23,6 @@ export const HomePage = () => {
       </div>
     ) : (
       <div>
-        <a>No estás autenticado. Por favor, inicia sesión. </a>
         <AuthPage />
         </div>
     )
