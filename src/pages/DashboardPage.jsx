@@ -1,19 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { RiLineChartLine } from "react-icons/ri";
+import Modal from '../components/Modal';
 
 export const DashboardPage = () => {
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <>
-    <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 mt-10 gap-8">
+      {modalOpen && <div className="fixed inset-0 z-50 bg-black bg-opacity-50 blur"></div>}
+            <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 mt-10 gap-8 relative">
               <div className="bg-primary-100 p-8 rounded-xl text-gray-300 flex flex-col gap-6">
                 <RiLineChartLine className="text-5xl" />
                 <h4 className="text-2xl">Total Neto</h4>
                 <span className="text-5xl text-white">L. 8,350</span>
               </div>
-              <div className="p-4 bg-white rounded-xl flex flex-col justify-between gap-4 drop-shadow-2xl">
+              <div className="p-4 bg-white rounded-xl flex flex-col justify-between gap-4 drop-shadow-2xl relative">
                 <div className="flex items-center gap-4 bg-primary-100/10 rounded-xl p-4">
                   <span className="bg-primary-100 text-gray-300 text-2xl font-bold p-4 rounded-xl">
-                     ★
+                    ★
                   </span>
                   <div>
                     <h3 className="font-bold">Categoria #1 en egresos:</h3>
@@ -32,13 +45,13 @@ export const DashboardPage = () => {
                   </div>
                 </div>
                 <div className="w-full xl:w-auto">
-                    <button className="bg-primary-100 py-2 px-6 rounded-xl text-white w-full">
-                      Nueva Transacción
-                    </button>
-                  </div>
+                  <button onClick={openModal} className="bg-primary-100 py-2 px-6 rounded-xl text-white w-full">
+                    Nueva Transacción
+                  </button>
+                </div>
               </div>
               <div className="col-span-1 md:col-span-2 flex flex-col justify-between">
-                <h1 className="text-2xl font-bold mb-4">Gráfico</h1>
+                <h1 className="text-2xl font-bold mb-4">Ingresos vs. Egresos </h1>
                 <div className="bg-white p-1 rounded-xl shadow-2xl">
                   <img
                     src="/src/assets/grafico.webp"
@@ -47,6 +60,7 @@ export const DashboardPage = () => {
                 </div>
               </div>
             </section>
+            {modalOpen && <Modal onClose={closeModal} />}
             <section className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-8">
               <div>
                 <h1 className="text-2xl font-bold mb-4">Recientes</h1>

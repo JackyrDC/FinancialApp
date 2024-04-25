@@ -4,10 +4,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import {
   RiHome3Line,
   RiFileCopyLine,
-  RiWalletLine,
   RiPieChartLine,
   RiMore2Fill,
   RiCloseFill,
+  RiShutDownLine
 } from "react-icons/ri";
 
 const Sidebar = () => {
@@ -42,7 +42,7 @@ const Sidebar = () => {
               href="/history"
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
-              <RiWalletLine /> Historial
+              <RiFileCopyLine /> Historial
             </a>
             <a
               href="/reports"
@@ -54,7 +54,7 @@ const Sidebar = () => {
               href="" onClick={() => logout({ returnTo: window.location.origin})}
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
-              <RiPieChartLine /> Cerrar Sesión
+              <RiShutDownLine /> Cerrar Sesión
             </a>
           </nav>
           <div className="bg-primary-900/50 text-white p-4 rounded-xl">
