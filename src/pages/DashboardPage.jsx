@@ -26,7 +26,6 @@ export const DashboardPage = () => {
     style: 'currency',
     currency: 'HNL'
   }).format(TotalNeto);
-  
 
   return (
     <>

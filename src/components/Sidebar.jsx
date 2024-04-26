@@ -14,7 +14,7 @@ const Sidebar = () => {
   const [showMenu ] = useState(false);
   const { user, logout } = useAuth0();
 
-  const emailAddress = 'destinatario@example.com';
+  const emailAddress = 'djackyrcalix@gmail.com';
 
   const handleClick = () => {
     window.location.href = `mailto:${emailAddress}`;
