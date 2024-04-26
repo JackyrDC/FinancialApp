@@ -5,12 +5,12 @@ import {
 	useLocation,
 	useNavigate,
 } from 'react-router-dom';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Disclosure } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const navigation = [
-  { name: 'Iniciar Sesión', href: '/login', current: false },
-  { name: 'Registrarse', href: '/register', current: false },
+  { name: 'Iniciar Sesión', href: '/nav/login', current: false },
+  { name: 'Registrarse', href: '/nav/register', current: false },
 ]
 
 function classNames(...classes) {

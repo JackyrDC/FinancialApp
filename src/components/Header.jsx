@@ -1,10 +1,9 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-// Icons
-import { RiSearch2Line } from "react-icons/ri";
 
 const Header = () => {
-  const { user, isAuthenticated, isLoading, logout } = useAuth0();
+  const { user } = useAuth0();
+
   const getFirstName = (fullName) => {
     // Divide el nombre completo en palabras usando el espacio como separador
     const words = fullName.split(" ");

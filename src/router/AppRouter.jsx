@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
-import { LoginPage, RegisterPage, HomePage, ReportsPage, TransactionsPage, DashboardPage, AuthPage, Logout, Profile  } from '../pages';
+import { HomePage, ReportsPage, TransactionsPage, DashboardPage, AuthPage, Logout, Profile  } from '../pages';
 
 export const AppRouter = () => {
   return (

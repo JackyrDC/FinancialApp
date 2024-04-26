@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { Outlet } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { AuthPage, Logout, Profile  } from '../pages'
+import { AuthPage } from '../pages'
 
 export const HomePage = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
