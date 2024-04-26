@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { RiLineChartLine } from "react-icons/ri";
+import { PieChart } from '@mui/x-charts';
 import Modal from '../components/Modal';
 
 export const DashboardPage = () => {
 
-  const [modalOpen, setModalOpen] = useState(false);
+  // Variables consultar base:
+  const TopEgresos = "Transporte"; 
+  const NTransacciones = 12;
+  const TotalIngresos = 25875.65;
+  const TotalEgresos = 15741.66;
+  const TotalNeto = TotalIngresos-TotalEgresos;
 
+
+
+  const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
   };
@@ -13,6 +22,10 @@ export const DashboardPage = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+  const formattedTotal = new Intl.NumberFormat('es-HN', {
+    style: 'currency',
+    currency: 'HNL'
+  }).format(TotalNeto);
 
   return (
     <>
@@ -21,7 +34,7 @@ export const DashboardPage = () => {
               <div className="bg-primary-100 p-8 rounded-xl text-gray-300 flex flex-col gap-6">
                 <RiLineChartLine className="text-5xl" />
                 <h4 className="text-2xl">Total Neto</h4>
-                <span className="text-5xl text-white">L. 8,350</span>
+                <span className="text-4xl text-white">{formattedTotal}</span>
               </div>
               <div className="p-4 bg-white rounded-xl flex flex-col justify-between gap-4 drop-shadow-2xl relative">
                 <div className="flex items-center gap-4 bg-primary-100/10 rounded-xl p-4">
@@ -29,18 +42,18 @@ export const DashboardPage = () => {
                     ★
                   </span>
                   <div>
-                    <h3 className="font-bold">Categoria #1 en egresos:</h3>
-                    <p className="text-gray-500">Comida</p>
+                    <h3 className="font-bold">Top Egresos:</h3>
+                    <p className="text-gray-500">{TopEgresos}</p>
                   </div>
                 </div>
                 <div className="bg-primary-100/10 rounded-xl p-4">
                   <div className="flex items-center gap-4 mb-4">
                     <span className="bg-primary-100 text-gray-300 text-2xl font-bold p-4 rounded-xl">
-                      13
+                    {NTransacciones}
                     </span>
                     <div>
                       <h3 className="font-bold">Transacciones</h3>
-                      <p className="text-gray-500">5 en este mes</p>
+                      <p className="text-gray-500">{NTransacciones} en este mes</p>
                     </div>
                   </div>
                 </div>
@@ -52,10 +65,20 @@ export const DashboardPage = () => {
               </div>
               <div className="col-span-1 md:col-span-2 flex flex-col justify-between">
                 <h1 className="text-2xl font-bold mb-4">Ingresos vs. Egresos </h1>
-                <div className="bg-white p-1 rounded-xl shadow-2xl">
-                  <img
-                    src="/src/assets/grafico.webp"
-                    className="w-full h-full"
+                <div className="bg-white p-8 rounded-xl shadow-2xl">
+                  <PieChart
+                    series={[
+                      {
+                        data: [
+                          { id: 0, value: TotalIngresos, label: 'Ingresos', color: 'green' },
+                          { id: 1, value: TotalEgresos, label: 'Egresos',color: 'red' },
+                        ],
+                        highlightScope: { faded: 'global', highlighted: 'item' },
+                        faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
+                      },
+                    ]}
+                    width={500}
+                    height={250}
                   />
                 </div>
               </div>

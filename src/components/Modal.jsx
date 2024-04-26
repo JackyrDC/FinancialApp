@@ -5,7 +5,10 @@ function Modal({ onClose }) {
   const [monto, setMonto] = useState('');
   const [categoria, setCategoria] = useState('Alimentacion');
   const [descripcion, setDescripcion] = useState('');
-  const [fecha] = useState(new Date().toISOString().slice(0, 16)); // Fecha actual con hora y minutos
+  const now = new Date();
+  const offset = now.getTimezoneOffset() * 60000; // Obtener el offset en milisegundos
+  const localDate = new Date(now - offset).toISOString().slice(0, 16);
+  const [fecha] = useState(localDate); // Fecha actual con hora y minutos en la zona horaria local
   const [readOnlyFecha] = useState(true); // Fecha no editable
 
   const categorias = [
@@ -37,7 +40,7 @@ function Modal({ onClose }) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-        <h2 className="text-2xl mb-4">Registrar Transacción</h2>
+        <h2 className="text-2xl mb-4 font-bold">Registrar Transacción</h2>
         <form>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">Tipo</label>
