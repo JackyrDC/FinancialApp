@@ -14,6 +14,12 @@ const Sidebar = () => {
   const [showMenu ] = useState(false);
   const { user, logout } = useAuth0();
 
+  const emailAddress = 'destinatario@example.com';
+
+  const handleClick = () => {
+    window.location.href = `mailto:${emailAddress}`;
+  };
+
   return (
     <>
       <div
@@ -59,7 +65,7 @@ const Sidebar = () => {
           </nav>
           <div className="bg-primary-900/50 text-white p-4 rounded-xl">
             <p className="text-gray-400">¿Tienes Problemas?</p>
-            <a href="#">Contactanos</a>
+            <a href="#" onClick={handleClick}>Contactanos</a>
           </div>
         </div>
       </div>
