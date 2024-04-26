@@ -7,9 +7,9 @@ export const DashboardPage = () => {
 
   // Variables consultar base:
   const TopEgresos = "Transporte"; 
-  const NTransacciones = 12;
+  const NTransacciones = 7;
   const TotalIngresos = 25875.65;
-  const TotalEgresos = 15741.66;
+  const TotalEgresos = 2458.66;
   const TotalNeto = TotalIngresos-TotalEgresos;
 
 
@@ -33,7 +33,7 @@ export const DashboardPage = () => {
             <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 mt-10 gap-8 relative">
               <div className="bg-primary-100 p-8 rounded-xl text-gray-300 flex flex-col gap-6">
                 <RiLineChartLine className="text-5xl" />
-                <h4 className="text-2xl">Total Neto</h4>
+                <h4 className="text-2xl">Total</h4>
                 <span className="text-4xl text-white">{formattedTotal}</span>
               </div>
               <div className="p-4 bg-white rounded-xl flex flex-col justify-between gap-4 drop-shadow-2xl relative">
