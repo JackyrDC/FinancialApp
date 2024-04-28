@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { UserAuth } from "../context/AuthContext";
 
 // Icons
 import {
@@ -12,11 +13,20 @@ import {
 
 const Sidebar = () => {
   const [showMenu ] = useState(false);
+  const { user, logOut } = UserAuth();
   const emailAddress = 'djackyrcalix@gmail.com';
 
   const handleClick = () => {
     window.location.href = `mailto:${emailAddress}`;
   };
+
+  const cerrarSesion = async()=>{
+    try {
+      await logOut();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -28,10 +38,10 @@ const Sidebar = () => {
         {/* Profile */}
         <div className="flex flex-col items-center justify-center p-8 gap-2 h-[30vh]">
           <img
-            src=""
+            src={user.photoURL}
             className="w-20 h-20 object-cover rounded-full ring-2 ring-gray-300"
           />
-          <h1 className="text-xl text-white font-bold">Angel Flores</h1>
+          <h1 className="text-xl text-white font-bold">{user.displayName}</h1>
         </div>
         {/* Nav */}
         <div className="bg-primary-300 p-8 rounded-tr-[100px] h-[70vh] flex flex-col justify-between gap-8">
@@ -55,7 +65,7 @@ const Sidebar = () => {
               <RiPieChartLine /> Reportes
             </a>
             <a
-              href="" onClick={() => logout({ returnTo: window.location.origin})}
+              href="" onClick={cerrarSesion}
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
               <RiShutDownLine /> Cerrar Sesión
