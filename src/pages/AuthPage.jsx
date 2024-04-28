@@ -1,10 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
 
 
 export const AuthPage = () => {
-  const { loginWithRedirect } = useAuth0();
   return (
     <>
     <div className="flex justify-center items-center h-screen">
@@ -18,7 +16,7 @@ export const AuthPage = () => {
           </p>
           <div className="flex justify-center">
             <button
-              onClick={() => loginWithRedirect()}
+              onClick=""
               className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
             >
               Iniciar sesión
