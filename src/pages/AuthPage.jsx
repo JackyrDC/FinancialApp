@@ -1,52 +1,176 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-
-const Navbar = () => {
-  return (
-    <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-white font-bold">
-          Financial App
-        </Link>
-        <div>
-          <Link to="#" className="text-white mr-4 hover:underline">
-            Acerca de
-          </Link>
-          <Link to="#" className="text-white hover:underline">
-            Contacto
-          </Link>
-        </div>
-      </div>
-    </nav>
-  );
-};
+import imgfinanzas from "../assets/finanzas.svg";
+import logogoogle from "../assets/logoogle.png";
+import styled from "styled-components";
+import {
+  TiSocialFacebook,
+  TiSocialYoutube,
+  TiSocialInstagram,
+  TiSocialGithub,
+} from "react-icons/ti";
 
 export const AuthPage = () => {
   const { loginWithRedirect } = useAuth0();
   return (
-    <>
-    <Navbar />
-    <div className="flex justify-center items-center h-screen">
-      <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="px-4 py-6">
-          <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">
-            Bienvenido
-          </h2>
-          <p className="text-gray-600 text-center mb-6">
-            Por favor, inicia sesión para continuar.
-          </p>
-          <div className="flex justify-center">
-            <button
-              onClick={() => loginWithRedirect()}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-            >
-              Iniciar sesión
-            </button>
-          </div>
+
+    <Container>
+      <section className="imgseccion">
+        <h1>Es hora de transformar tus finanzas.</h1>
+        <div className="fondocontent">
+          <img src={imgfinanzas} />
         </div>
-      </div>
-    </div>
-    </>
+        <h4>
+        El camino está por delante de ti. Ya ha dado su primer paso hacia la transformación financiera y lo guiaremos en ese viaje.🤑
+        </h4>
+      </section>
+      <section className="panelsesion">
+        <h2>Iniciar sesión</h2>
+
+        <button className="btniniciar" onClick={loginWithRedirect}>
+          <img src={logogoogle} />
+          <span> Iniciar con Gmail</span>
+        </button>
+        <div className="social">
+          <a href="https://www.facebook.com/profile.php?id=100082869805687" target="_blank" rel="noopener noreferrer"><TiSocialFacebook className="icons" /></a>
+          <a href="https://www.youtube.com/@Codigo369" target="_blank" rel="noopener noreferrer"><TiSocialYoutube className="icons" /></a>
+          <a href="https://www.youtube.com/shorts/HL78Ug5idXc" target="_blank" rel="noopener noreferrer"><TiSocialInstagram className="icons" /></a>
+          <a href="https://github.com/Franklin369" target="_blank" rel="noopener noreferrer"><TiSocialGithub className="icons"/></a>
+        </div>
+      </section>
+    </Container>
   );
 };
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 30px;
+  background: radial-gradient(#161e53, #083DE3);
+  flex-direction: column-reverse;
+  width: 100vw;
+ 
+  .imgseccion {
+    background-color: white;
+
+    border-radius: 15px;
+    padding: 20px;
+
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 35px;
+    margin-top: 20px;
+    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.12);
+    h1 {
+      font-size: 35px;
+      font-weight: 650;
+    }
+    h4 {
+      color: #aaaaaa;
+    }
+    .fondocontent {
+      display: flex;
+      justify-content: center;
+      img {
+        width: 100%;
+        -webkit-animation: flotar 3s ease-in-out infinite;
+        animation: flotar 3s ease-in-out infinite;
+      }
+    }
+  }
+
+  .panelsesion {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h2 {
+      color: white;
+      text-align: center;
+      font-weight: 600;
+      font-size: 52px;
+    }
+    .btniniciar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-style: none;
+
+      img {
+        width: 30px;
+      }
+      background-color: white;
+
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 22px;
+
+      transition: all 0.25s ease;
+      box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.12);
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 20px 40px 0px rgb(0 0 0 / 10%);
+        cursor: pointer;
+      }
+      span {
+        opacity: 0.8;
+      }
+    }
+    .social {
+      gap: 20px;
+      display: flex;
+      justify-content: center;
+      align-content: space-between;
+      color: white;
+      font-size: 30px;
+      position: relative;
+      bottom: 0;
+
+      .icons:hover {
+        transform: translateY(10px);
+        transition: all 0.5s;
+      }
+    }
+  }
+  @media (min-width: 64em) {
+    flex-direction: row;
+    .imgseccion {
+      margin-top: 0;
+      width: 50%;
+    }
+    .panelsesion {
+      width: 50%;
+    }
+  }
+  @media (max-width: 48em) {
+    .imgseccion {
+      .fondocontent {
+        img {
+          /* width: 80%; */
+        }
+      }
+    }
+  }
+  @keyframes flotar {
+    0% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(0, 20px);
+    }
+    100% {
+      transform: translate(0, 0px);
+    }
+  }
+`;
