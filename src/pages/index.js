@@ -1,4 +1,4 @@
-export * from './LoginPage';
+export * from './Login';
 export * from './RegisterPage';
 export * from './AuthPage';
 export * from './Logout';
