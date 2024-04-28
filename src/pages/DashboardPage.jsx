@@ -27,6 +27,8 @@ export const DashboardPage = () => {
     currency: 'HNL'
   }).format(TotalNeto);
 
+  const mesActual = new Date().toLocaleString('default', { month: 'long' });
+
   return (
     <>
       {modalOpen && <div className="fixed inset-0 z-50 bg-black bg-opacity-50 blur"></div>}
@@ -64,7 +66,7 @@ export const DashboardPage = () => {
                 </div>
               </div>
               <div className="col-span-1 md:col-span-2 flex flex-col justify-between">
-                <h1 className="text-2xl font-bold mb-4">Ingresos vs. Egresos </h1>
+                <h1 className="text-2xl font-bold mb-4">Balance de {mesActual.charAt(0).toUpperCase() + mesActual.slice(1)}</h1>
                 <div className="bg-white p-8 rounded-xl shadow-2xl">
                   <PieChart
                     series={[
@@ -77,8 +79,8 @@ export const DashboardPage = () => {
                         faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
                       },
                     ]}
-                    width={500}
-                    height={250}
+                    width={400}
+                    height={230}
                   />
                 </div>
               </div>
