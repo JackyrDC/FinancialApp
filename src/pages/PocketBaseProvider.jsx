@@ -1,11 +1,23 @@
 // PocketBaseProvider.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import PocketBaseContext from './PocketBaseContext';
 import PocketBase from 'pocketbase';
+import { useState } from 'react';
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+
+const pb = new PocketBase('https://financialapp.pockethost.io');
 
 const PocketBaseProvider = ({ children }) => {
+  const [token, setToken] = useState(pb.authStore.token);
+  const [user, setUser] = useState(pb.authStore.model);
+
+  useEffect(() => {
+    return pb.authStore.onChange((token, model) => {
+      setToken(token);
+      setUser(model);
+    });
+  }, []);
+
   return (
     <PocketBaseContext.Provider value={pb}>
       {children}

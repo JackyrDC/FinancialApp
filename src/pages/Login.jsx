@@ -21,13 +21,13 @@ const Login = () => {
     async function handleSubmitAuth(e) {
         try {
             const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
+            console.log(pb.authStore.isValid);
+            console.log(pb.authStore.token);
+            console.log(pb.authStore.model.id);
             navigate("/");
         } catch (error) {
             console.error(error);
         }
-        console.log(pb.authStore.isValid);
-        console.log(pb.authStore.token);
-        console.log(pb.authStore.model.id);
     };
 
 
