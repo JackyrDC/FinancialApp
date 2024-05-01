@@ -18,6 +18,19 @@ const Login = () => {
         }
     }
 
+    async function handleSubmitAuth(e) {
+        try {
+            const authData = await pb.collection('users').authWithOAuth2({ provider: 'google' });
+            navigate("/");
+        } catch (error) {
+            console.error(error);
+        }
+        console.log(pb.authStore.isValid);
+        console.log(pb.authStore.token);
+        console.log(pb.authStore.model.id);
+    };
+
+
     return (  
         <div className="flex justify-center flex-col gap-2 items-center h-screen bg-slate-100">
             <div className="card w-96 bg-base-100 shadow-xl h-80">
@@ -38,6 +51,12 @@ const Login = () => {
                     <input type="submit" className="btn btn-primary w-full" value="Login"></input>
                     </div>
                 </form>
+                <button
+                    onClick={() => handleSubmitAuth()}
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    >
+                    Iniciar sesión con Google
+                </button>
             </div>
             </div>
             <Link className="text-neutral-500 text-md" to="/register">Register</Link>
