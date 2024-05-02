@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
 import imgfinanzas from "../assets/finanzas.svg";
 import logogoogle from "../assets/logoogle.png";
 import styled from "styled-components";
