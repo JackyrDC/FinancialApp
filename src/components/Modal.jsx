@@ -21,6 +21,7 @@ function Modal({ onClose }) {
   const [readOnlyFecha] = useState(true); // Fecha no editable
 
   const categorias = [
+    'Gastos Fijos',
     'Alimentacion',
     'Transporte',
     'Entretenimiento',
