@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { RiLineChartLine } from "react-icons/ri";
 import { PieChart } from '@mui/x-charts';
 import Modal from '../components/Modal';
+import PocketBaseContext from '../pages/PocketBaseContext';
+const pb = useContext(PocketBaseContext)
+
 
 export const DashboardPage = () => {
 
@@ -16,7 +19,7 @@ export const DashboardPage = () => {
   const openModal = () => {
     setModalOpen(true);
   };
-
+  
   const closeModal = () => {
     setModalOpen(false);
   };

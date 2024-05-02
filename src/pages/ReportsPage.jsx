@@ -1,4 +1,4 @@
-import PocketBaseContext from 'PocketBaseContext' 
+import PocketBaseContext from '../pages/PocketBaseContext' 
 import { useContext } from 'react'
 
 
