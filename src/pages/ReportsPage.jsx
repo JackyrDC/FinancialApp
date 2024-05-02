@@ -1,16 +1,35 @@
-import PocketBaseContext from './PocketBaseContext' 
-import { useContext } from 'react'
+import React, { useEffect, useState } from 'react';
+import PocketBaseContext from './PocketBaseContext';
+import { useContext } from 'react';
 
+const ReportsPage = () => {
+  const pb = useContext(PocketBaseContext);
+  const [userExpenses, setUserExpenses] = useState([]);
 
-export const ReportsPage = async() => {
-  const pb = useContext(PocketBaseContext)
-  const user = pb.authStore.model.id
-  const userExpenses = await pb.collection("expenses").getFullList(1,50,{filter:'user = '+ user })
-  console.log(userExpenses)
-  
+  useEffect(() => {
+    const fetchData = async () => {
+      const user = pb.authStore.model.id;
+      const filter = `user="${user}"`;
+      pb.autoCancellation(false);
+      const expenses = await pb.collection("expenses").getFullList({
+        filter: filter,
+        sort: '-created',
+      });
+      setUserExpenses(expenses);
+      console.log(expenses)
+    };
+
+    fetchData();
+  }, [pb]);
+
   return (
-    <h1>
+    <div>
+      <h1>Reports Page</h1>
+      {userExpenses.map((expense) => (
+        <div key={expense.id}>{/* Render each expense item here */}</div>
+      ))}
+    </div>
+  );
+};
 
-    </h1>
-  )
-}
+export default ReportsPage;
