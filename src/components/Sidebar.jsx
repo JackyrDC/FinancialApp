@@ -38,7 +38,7 @@ const Sidebar = () => {
             src=""
             className="w-20 h-20 object-cover rounded-full ring-2 ring-gray-300"
           />
-          <h1 className="text-xl text-white font-bold">Angel Flores</h1>
+          <h1 className="text-xl text-white font-bold">{pb.authStore.model.name}</h1>
         </div>
         {/* Nav */}
         <div className="bg-primary-300 p-8 rounded-tr-[100px] h-[70vh] flex flex-col justify-between gap-8">
