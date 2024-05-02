@@ -29,8 +29,7 @@ const Login = () => {
             console.error(error);
         }
     };
-
-
+    
     return (  
         <div className="flex justify-center flex-col gap-2 items-center h-screen bg-slate-100">
             <div className="card w-96 bg-base-100 shadow-xl h-80">

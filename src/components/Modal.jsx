@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
+import PocketBaseContext from "../pages/PocketBaseContext"
 
 function Modal({ onClose }) {
+
+  const [amount, setAmount] = useState(0);
+  const [category, setCategory] = useState("");
+
+  const pb = useContext(PocketBaseContext);
+
   const [tipo, setTipo] = useState('Ingreso');
   const [monto, setMonto] = useState('');
   const [categoria, setCategoria] = useState('Alimentacion');
   const [descripcion, setDescripcion] = useState('');
+
+  // Fecha no se ocupan, solo visual.
   const now = new Date();
   const offset = now.getTimezoneOffset() * 60000; // Obtener el offset en milisegundos
   const localDate = new Date(now - offset).toISOString().slice(0, 16);
@@ -17,7 +26,7 @@ function Modal({ onClose }) {
     'Entretenimiento',
     'Salud',
     'Educacion',
-    'otros'
+    'Ocio'
   ];
 
   const handleGuardar = () => {

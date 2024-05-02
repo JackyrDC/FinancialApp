@@ -35,6 +35,7 @@ const Register = () => {
             // Automatically login the user
             const authData = await pb.collection('users').authWithPassword(email, password);
             navigate("/");
+            
         } catch (error) {
             console.error(error);
         }
