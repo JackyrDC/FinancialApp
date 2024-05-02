@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useContext } from "react";
+import PocketBaseContext from "../pages/PocketBaseContext";
+
 // Icons
 import {
   RiHome3Line,
@@ -12,12 +14,15 @@ import {
 
 const Sidebar = () => {
   const [showMenu ] = useState(false);
-  const { user, logout } = useAuth0();
-
   const emailAddress = 'djackyrcalix@gmail.com';
 
   const handleClick = () => {
     window.location.href = `mailto:${emailAddress}`;
+  };
+
+  const pb = useContext(PocketBaseContext);
+  const handleLogout = () => {
+    pb.authStore.clear();
   };
 
   return (
@@ -30,10 +35,10 @@ const Sidebar = () => {
         {/* Profile */}
         <div className="flex flex-col items-center justify-center p-8 gap-2 h-[30vh]">
           <img
-            src={user.picture}
+            src=""
             className="w-20 h-20 object-cover rounded-full ring-2 ring-gray-300"
           />
-          <h1 className="text-xl text-white font-bold">{user.given_name} {user.family_name}</h1>
+          <h1 className="text-xl text-white font-bold">Angel Flores</h1>
         </div>
         {/* Nav */}
         <div className="bg-primary-300 p-8 rounded-tr-[100px] h-[70vh] flex flex-col justify-between gap-8">
@@ -57,7 +62,7 @@ const Sidebar = () => {
               <RiPieChartLine /> Reportes
             </a>
             <a
-              href="" onClick={() => logout({ returnTo: window.location.origin})}
+              href="" onClick={() => handleLogout()}
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
               <RiShutDownLine /> Cerrar Sesión
@@ -65,7 +70,7 @@ const Sidebar = () => {
           </nav>
           <div className="bg-primary-900/50 text-white p-4 rounded-xl">
             <p className="text-gray-400">¿Tienes Problemas?</p>
-            <a href="#" onClick={handleClick}>Contactanos</a>
+            <a href="" onClick={handleClick}>Contactanos</a>
           </div>
         </div>
       </div>

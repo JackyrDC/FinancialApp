@@ -12,8 +12,6 @@ export const DashboardPage = () => {
   const TotalEgresos = 2458.66;
   const TotalNeto = TotalIngresos-TotalEgresos;
 
-
-
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
