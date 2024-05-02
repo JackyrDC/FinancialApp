@@ -3,13 +3,11 @@ import PocketBaseContext from "../pages/PocketBaseContext"
 
 function Modal({ onClose }) {
 
-  const [amount, setAmount] = useState(0);
-  const [category, setCategory] = useState("");
-
   const pb = useContext(PocketBaseContext);
 
+  const [amount, setAmount] = useState(0);
+  const [category, setCategory] = useState("");
   const [tipo, setTipo] = useState('Ingreso');
-  const [monto, setMonto] = useState('');
   const [categoria, setCategoria] = useState('Alimentacion');
   const [descripcion, setDescripcion] = useState('');
 
@@ -20,25 +18,42 @@ function Modal({ onClose }) {
   const [fecha] = useState(localDate); // Fecha actual con hora y minutos en la zona horaria local
   const [readOnlyFecha] = useState(true); // Fecha no editable
 
-  const categorias = [
-    'Gastos Fijos',
-    'Alimentacion',
+  const categories = [
+    'Educación',
     'Transporte',
-    'Entretenimiento',
+    'Alimentación',
+    'Ocio',
     'Salud',
-    'Educacion',
-    'Ocio'
+    'Entretenimiento',
   ];
 
-  const handleGuardar = () => {
-    // Aquí puedes agregar la lógica para guardar la transacción
-    console.log("Tipo:", tipo);
-    console.log("Monto:", monto);
-    console.log("Categoría:", categoria);
-    console.log("Descripción:", descripcion);
-    console.log("Fecha:", fecha);
+  const categoriesExpense = {
+    "Educación": '0bdec586jdcc6yl',
+    "Transporte": 'gqvw3zmv64soxtt',
+    "Alimentación": 'bngyqv8smschzy4',
+    "Ocio": 'wex4348d6pz5u0r',
+    "Salud": 'bflxztysr4avre0',
+    "Entretenimiento": 'ur26x4pwvo05umk',
+  };
 
-    // Cierra el modal después de guardar la transacción
+  async function handleGuardar() {
+    const data = {
+        "user": pb.authStore.model.id,
+        "ammount": amount,
+        "category": categoriesExpense[categoria],
+        "description": descripcion,
+    };
+
+    const record = await pb.collection('expenses').create(data);
+
+
+    console.log("Usuario:", data.user);
+    console.log("Monto:", data.ammount);
+    console.log("Categoría:", data.category);
+    console.log("Descripción:", data.description);
+    console.log("Fecha:", fecha);
+    console.log(record);
+
     onClose();
   };
 
@@ -68,8 +83,8 @@ function Modal({ onClose }) {
             <input
               type="number"
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-4xl"
-              value={monto}
-              onChange={(e) => setMonto(e.target.value)}
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -79,7 +94,7 @@ function Modal({ onClose }) {
               value={categoria}
               onChange={(e) => setCategoria(e.target.value)}
             >
-              {categorias.map(cat => (
+              {categories.map(cat => (
                 <option key={cat} value={cat}>{cat}</option>
               ))}
             </select>

@@ -7,10 +7,13 @@ const ReportsPage = () => {
 
   const [userExpenses, setUserExpenses] = useState([]);
 
-  const categories = {
+  const categoriesExpense = {
     '0bdec586jdcc6yl': "Educación",
     'gqvw3zmv64soxtt': "Transporte",
     'bngyqv8smschzy4': "Alimentación",
+    'wex4348d6pz5u0r': "Ocio",
+    'bflxztysr4avre0': "Salud",
+    'ur26x4pwvo05umk': "Entretenimiento"
   };
   
 
@@ -40,7 +43,7 @@ const ReportsPage = () => {
           <div className="p-4">
           <p className="text-gray-600">Descripción: {expense.description}</p>
           <p className="text-gray-600">Monto: {expense.ammount}</p>
-          <p className="text-gray-600">Categoria: {categories[expense.category]}</p>
+          <p className="text-gray-600">Categoria: {categoriesExpense[expense.category]}</p>
           </div>
         </div>
       ))}
