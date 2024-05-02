@@ -13,6 +13,11 @@ import {
 } from "react-icons/ri";
 
 const Sidebar = () => {
+  const pb = useContext(PocketBaseContext);
+  const [url, setUrl] = useState('');
+
+
+
   const [showMenu ] = useState(false);
   const emailAddress = 'djackyrcalix@gmail.com';
 
@@ -20,7 +25,6 @@ const Sidebar = () => {
     window.location.href = `mailto:${emailAddress}`;
   };
 
-  const pb = useContext(PocketBaseContext);
   const handleLogout = () => {
     pb.authStore.clear();
   };
@@ -35,7 +39,7 @@ const Sidebar = () => {
         {/* Profile */}
         <div className="flex flex-col items-center justify-center p-8 gap-2 h-[30vh]">
           <img
-            src=""
+            src= {pb.authStore.model.picture}
             className="w-20 h-20 object-cover rounded-full ring-2 ring-gray-300"
           />
           <h1 className="text-xl text-white font-bold">{pb.authStore.model.name}</h1>
