@@ -3,8 +3,7 @@ import { RiLineChartLine } from "react-icons/ri";
 import { PieChart } from '@mui/x-charts';
 import Modal from '../components/Modal';
 import PocketBaseContext from './PocketBaseContext';
-
-
+import { useContext } from 'react';
 
 export const DashboardPage = () => {
 
