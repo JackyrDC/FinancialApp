@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { RiLineChartLine } from "react-icons/ri";
 import { PieChart } from '@mui/x-charts';
 import Modal from '../components/Modal';
-import PocketBaseContext from '../pages/PocketBaseContext';
-const pb = useContext(PocketBaseContext)
+import PocketBaseContext from './PocketBaseContext';
+
 
 
 export const DashboardPage = () => {
+
+  const pb = useContext(PocketBaseContext);
 
   // Variables consultar base:
   const TopEgresos = "Transporte"; 
