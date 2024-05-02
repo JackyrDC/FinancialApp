@@ -25,16 +25,17 @@ const Login = () => {
 
     if (meta.isNew) {
       const formData = new FormData();
-
       const response = await fetch(meta.avatarUrl);
 
       if (response.ok) {
         const file = await response.blob();
         formData.append('avatar', file);
       }
+      formData.append('name', meta.name);
+      formData.append('picture', meta.avatarUrl);
       await pb.collection('users').update(authData.record.id, formData);
-
     };
+
       navigate("/");
       console.log(pb.authStore.isValid);
       console.log(pb.authStore.token);
