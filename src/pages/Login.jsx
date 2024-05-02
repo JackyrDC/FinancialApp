@@ -18,28 +18,27 @@ const Login = () => {
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
-        try {
-            const authData = await pb
-            .collection('users')
-            .authWithOAuth2({ provider: 'google' });
-            const meta = authData.meta;
-            const formData = new FormData();
-            const response = await fetch(meta.avatarUrl);
-            if (response.ok) {
-                const file = await response.blob();
-                formData.append('avatar', file);
-            }
-            formData.append('name', meta.name);
-            formData.append('picture', meta.avatarUrl);
-            await pb.collection('users').update(authData.record.id, formData);
-            navigate("/");
-        } catch (error) {
-            console.error(error);
-        }
-        
-        console.log(pb.authStore.isValid);
-        console.log(pb.authStore.token);
-        console.log(pb.authStore.model.id);
+      const authData = await pb
+        .collection('users')
+        .authWithOAuth2({ provider: 'google' });
+        const meta = authData.meta;
+
+    if (meta.isNew) {
+      const formData = new FormData();
+
+      const response = await fetch(meta.avatarUrl);
+
+      if (response.ok) {
+        const file = await response.blob();
+        formData.append('avatar', file);
+      }
+      await pb.collection('users').update(authData.record.id, formData);
+
+    };
+      navigate("/");
+      console.log(pb.authStore.isValid);
+      console.log(pb.authStore.token);
+      console.log(pb.authStore.model.id);
     };
     
     return (  
