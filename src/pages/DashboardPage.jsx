@@ -3,33 +3,49 @@ import { RiLineChartLine } from "react-icons/ri";
 import { PieChart } from '@mui/x-charts';
 import Modal from '../components/Modal';
 import PocketBaseContext from './PocketBaseContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 export const DashboardPage = () => {
 
+  // Servidor
   const pb = useContext(PocketBaseContext);
 
-  // Variables consultar base:
+  useEffect(() => {
+    const DataAccount = async () => {
+    const search = await pb.collection('Accounts').getFirstListItem(`email="${pb.authStore.model.email}"`)
+    const account = await pb.collection('Accounts').getOne(search.id);
+    const transactions = account.count_ingresos + account.count_egresos;
+    setIngresos(account.total_mes_ingresos);
+    setEgresos(account.total_mes_egresos);
+    setTransacciones(transactions);
+    console.log(account)
+    };
+    DataAccount();
+  }, [pb]);
+
+  // Constantes Informacion
+  const [ingresos, setIngresos] = useState(0);
+  const [egresos, setEgresos] = useState(0);
+  const [transacciones, setTransacciones] = useState(0);
+
   const TopEgresos = "Transporte"; 
   const NTransacciones = 7;
-  const TotalIngresos = 25875.65;
   const TotalEgresos = 2458.66;
-  const TotalNeto = TotalIngresos-TotalEgresos;
+
+
 
   const [modalOpen, setModalOpen] = useState(false);
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+  const openModal = () => { setModalOpen(true); };
+  const closeModal = () => { setModalOpen(false); };
+
+  const TotalNeto = ingresos - egresos;
+
+  const mesActual = new Date().toLocaleString('default', { month: 'long' });
+
   const formattedTotal = new Intl.NumberFormat('es-HN', {
     style: 'currency',
     currency: 'HNL'
   }).format(TotalNeto);
-
-  const mesActual = new Date().toLocaleString('default', { month: 'long' });
 
   return (
     <>
@@ -53,11 +69,11 @@ export const DashboardPage = () => {
                 <div className="bg-primary-100/10 rounded-xl p-4">
                   <div className="flex items-center gap-4 mb-4">
                     <span className="bg-primary-100 text-gray-300 text-2xl font-bold p-4 rounded-xl">
-                    {NTransacciones}
+                    {transacciones}
                     </span>
                     <div>
                       <h3 className="font-bold">Transacciones</h3>
-                      <p className="text-gray-500">{NTransacciones} en este mes</p>
+                      <p className="text-gray-500">{transacciones} en este mes</p>
                     </div>
                   </div>
                 </div>
@@ -74,8 +90,8 @@ export const DashboardPage = () => {
                     series={[
                       {
                         data: [
-                          { id: 0, value: TotalIngresos, label: 'Ingresos', color: 'green' },
-                          { id: 1, value: TotalEgresos, label: 'Egresos',color: 'red' },
+                          { id: 0, value: ingresos, label: 'Ingresos', color: 'green' },
+                          { id: 1, value: egresos, label: 'Egresos',color: 'red' },
                         ],
                         highlightScope: { faded: 'global', highlighted: 'item' },
                         faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
