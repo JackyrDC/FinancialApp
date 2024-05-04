@@ -9,6 +9,7 @@ export const HomePage = () => {
       <Sidebar />
       <main className="lg:col-span-3 xl:col-span-5 bg-gray-100 p-8 h-[100vh] overflow-y-scroll">
         <Header />
+        <section className="grid grid-cols-1 md:grid-cols-2 mt-2 gap-8"></section>
         <Outlet />
       </main>
     </div>

@@ -6,9 +6,9 @@ function Modal({ onClose }) {
   const pb = useContext(PocketBaseContext);
 
   const [amount, setAmount] = useState(0);
-  const [category, setCategory] = useState("");
   const [tipo, setTipo] = useState('Ingreso');
-  const [categoria, setCategoria] = useState('Alimentacion');
+  const [category, setCategory] = useState("");
+  const [categoria, setCategoria] = useState('Otros');
   const [descripcion, setDescripcion] = useState('');
 
   // Fecha no se ocupan, solo visual.
@@ -25,6 +25,7 @@ function Modal({ onClose }) {
     'Ocio',
     'Salud',
     'Entretenimiento',
+    'Otros'
   ];
 
   const categoriesExpense = {
@@ -34,27 +35,37 @@ function Modal({ onClose }) {
     "Ocio": 'wex4348d6pz5u0r',
     "Salud": 'bflxztysr4avre0',
     "Entretenimiento": 'ur26x4pwvo05umk',
+    "Otros": '0cq5rlqpfig8a0h'
+  };
+
+  const categoriesIncome = {
+    'Educación': "1ani0dsrl1luykr",
+    'Transporte': "7fgh35l8uo5povj",
+    'Alimentación': "61vsyycebk6oq85",
+    'Ocio': "vrg1xjtq5orxf3b",
+    'Salud': "a65anubhipvwwm6",
+    'Entretenimiento': "7arlc4lnojwok2q",
+    'Otros': "ctpr6zv888lq9ke"
   };
 
   async function handleGuardar() {
-    const data = {
-        "user": pb.authStore.model.id,
-        "ammount": amount,
-        "category": categoriesExpense[categoria],
-        "description": descripcion,
+    let identificador = ''
+    const formData = new FormData(); 
+    formData.append('user', pb.authStore.model.id);
+    formData.append('ammount', amount);
+    if (tipo === 'Ingreso') {
+      formData.append('category', categoriesIncome[categoria]);
+      identificador = 'incomes';
+    } else if (tipo === 'Egreso') {
+      formData.append('category', categoriesExpense[categoria]);
+      identificador = 'expenses';
     };
 
-    const record = await pb.collection('expenses').create(data);
-
-
-    console.log("Usuario:", data.user);
-    console.log("Monto:", data.ammount);
-    console.log("Categoría:", data.category);
-    console.log("Descripción:", data.description);
-    console.log("Fecha:", fecha);
-    console.log(record);
-
+    formData.append('description', descripcion);
     onClose();
+    
+    const record = await pb.collection(identificador).create(formData);
+    console.log(record);
   };
 
   return (

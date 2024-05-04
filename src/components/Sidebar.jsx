@@ -13,14 +13,15 @@ import {
 } from "react-icons/ri";
 
 const Sidebar = () => {
+
+  // Base de Datos
   const pb = useContext(PocketBaseContext);
   const [url, setUrl] = useState('');
 
+  const [showMenu, setShowMenu] = useState(false);  // Responsive
 
-
-  const [showMenu ] = useState(false);
-  const emailAddress = 'djackyrcalix@gmail.com';
-
+  // Contactanos 
+  const emailAddress = 'djackyrcalix@gmail.com'; 
   const handleClick = () => {
     window.location.href = `mailto:${emailAddress}`;
   };
