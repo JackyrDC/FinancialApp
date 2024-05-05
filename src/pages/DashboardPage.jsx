@@ -86,7 +86,7 @@ export const DashboardPage = () => {
                     </span>
                     <div>
                       <h3 className="font-bold">Transacciones</h3>
-                      <p className="text-gray-500">Realizadas este mes</p>
+                      <p className="text-gray-500">Realizadas en este mes</p>
                     </div>
                   </div>
                 </div>
@@ -162,7 +162,7 @@ export const DashboardPage = () => {
               <div>
                 <h1 className="text-2xl font-bold mb-4">Recientes</h1>
                 <div className="bg-white p-8 rounded-xl shadow-2xl mb-8 flex flex-col gap-8">
-                {userTransactions.slice(0, 5).map((transaction) => (
+                {userTransactions.slice(0, 6).map((transaction) => (
                   <div key={transaction.id} className="grid grid-cols-6 items-center gap-4 mb-1">
                     <div className="col-span-3 flex items-center gap-4">
                       <div>
