@@ -13,7 +13,7 @@ export const DashboardPage = () => {
   const email = pb.authStore.model.email;
 
   // Datos Usuario:
-  const [topEgreso, setTopEgreso] = useState('');
+  const [topEgreso, setTopEgreso] = useState('ND');
   const [numeroTransacciones, setNumeroTransacciones] = useState(0);
   const [userTransactions, setUserTransactions] = useState([]);
   const [userCategories, setUserCategories] = useState([]);
@@ -48,18 +48,11 @@ export const DashboardPage = () => {
   const DataCategories = async () => {
     const analysis = await pb.collection('Category_Expense_Analysis').getFullList({
       filter: `user="${user}"`,
-      sort: ['-total_mes_actual', '-created'],
+      sort: ['-total_mes_actual'],
     });
     setUserCategories(analysis);
     const listCategories = await pb.collection('expense_categories').getFullList();
     setCategories(listCategories);
-    if (analysis.length > 0) {
-      const one = analysis[0];
-      const oneName = categories.find(cat => cat.id === one.category)?.name || 'N/A';
-      setTopEgreso(oneName);
-    } else {
-      setTopEgreso('N/A');
-    }
   };
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -70,7 +63,6 @@ export const DashboardPage = () => {
 
   return (
     <>
-
       {modalOpen && <div className="fixed inset-0 z-50 bg-black bg-opacity-50 blur"></div>}
             <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 mt-10 gap-8 relative">
               <div className="bg-primary-100 p-7 rounded-xl text-gray-300 flex flex-col gap-6">
@@ -86,7 +78,9 @@ export const DashboardPage = () => {
                   </span>
                   <div>
                     <h3 className="font-bold">Top Egresos:</h3>
-                    <p className="text-gray-500">{topEgreso}</p>
+                    {userCategories.slice(0, 1).map((item) => (
+                      <p className="text-gray-500">{categories.find(cat => cat.id === item.category)?.name || 'N/A'}</p>
+                    ))}
                   </div>
                 </div>
                 <div className="bg-primary-100/10 rounded-xl p-4">
@@ -127,7 +121,7 @@ export const DashboardPage = () => {
                 </div>
               </div>
             </section>
-            {modalOpen && <Modal onClose={async () => { closeModal(); await DataAccount(); await DataTransaction(); }} />}
+            {modalOpen && <Modal onClose={async () => { closeModal(); await DataAccount(); await DataTransaction(); await DataCategories(); }} />}
 
             <section className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-8">
               <div>
@@ -167,7 +161,7 @@ export const DashboardPage = () => {
                 <div className="bg-white p-8 rounded-xl shadow-2xl mb-8 flex flex-col gap-8">
                   {userCategories.length > 0 ? (
                     userCategories.map((item, index) => (
-                      <div className="grid grid-cols-8 xl:grid-cols-8 items-center gap-4 mb-4" key={index}>
+                      <div key={index} className="grid grid-cols-8 xl:grid-cols-8 items-center gap-4 mb-4">
                         <div className="col-span-1">
                           <span className="bg-yellow-100 text-black-800 py-1 px-3 rounded-full font-medium">
                             #{index + 1}
@@ -193,7 +187,7 @@ export const DashboardPage = () => {
                       </div>
                     ))
                   ) : (
-                    <div className="text-gray-500">No hay categorías disponibles.</div>
+                    <div key="default" className="text-gray-500">No hay categorías disponibles.</div>
                   )}
                 </div>
               </div>
