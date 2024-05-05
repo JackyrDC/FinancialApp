@@ -6,13 +6,9 @@ import PocketBaseContext from './PocketBaseContext';
 import { useContext, useEffect } from 'react';
 
 export const DashboardPage = () => {
-
-  // Servidor:
   const pb = useContext(PocketBaseContext);
   const user = pb.authStore.model.id;
   const email = pb.authStore.model.email;
-
-  // Datos Usuario:
   const [topEgreso, setTopEgreso] = useState('ND');
   const [numeroTransacciones, setNumeroTransacciones] = useState(0);
   const [userTransactions, setUserTransactions] = useState([]);
@@ -122,8 +118,47 @@ export const DashboardPage = () => {
               </div>
             </section>
             {modalOpen && <Modal onClose={async () => { closeModal(); await DataAccount(); await DataTransaction(); await DataCategories(); }} />}
-
             <section className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-8">
+            <div>
+                <h1 className="text-2xl font-bold mb-4">Categorias</h1>
+                <div className="bg-white p-8 rounded-xl shadow-2xl mb-8 flex flex-col gap-8">
+                {categories.map((category) => {
+                    const userCategory = userCategories.find((cat) => cat.category === category.id);
+                    return {
+                      id: category.id,
+                      name: category.name,
+                      total_mes_actual: userCategory ? userCategory.total_mes_actual : 0,
+                    };
+                  })
+                  .sort((a, b) => b.total_mes_actual - a.total_mes_actual)
+                  .map((category, index) => (
+                    <div key={index} className="grid grid-cols-8 xl:grid-cols-8 items-center gap-4 mb-4">
+                      <div className="col-span-1">
+                        <span className="bg-yellow-100 text-black-800 py-1 px-3 rounded-full font-medium">
+                          #{index + 1}
+                        </span>
+                      </div>
+                      <div className="col-span-3 flex items-center gap-4 justify-between">
+                        <div>
+                          <h3 className="font-bold">{category.name}</h3>
+                        </div>
+                      </div>
+                      <div className="col-span-2 flex items-center gap-4 justify-end">
+                        <div>
+                          <p className="text-gray-500">L {category.total_mes_actual.toLocaleString('es-HN', { minimumFractionDigits: 2 })}</p>
+                        </div>
+                      </div>
+                      <div className="col-span-2 flex items-center gap-4 justify-end">
+                        <div>
+                          <p className="text-gray-500">
+                            {(category.total_mes_actual / totalNeto * 100).toFixed(2)}%
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
               <div>
                 <h1 className="text-2xl font-bold mb-4">Recientes</h1>
                 <div className="bg-white p-8 rounded-xl shadow-2xl mb-8 flex flex-col gap-8">
@@ -154,41 +189,6 @@ export const DashboardPage = () => {
                     </div>
                   </div>
                 ))}
-                </div>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold mb-4">Categorias</h1>
-                <div className="bg-white p-8 rounded-xl shadow-2xl mb-8 flex flex-col gap-8">
-                  {userCategories.length > 0 ? (
-                    userCategories.map((item, index) => (
-                      <div key={index} className="grid grid-cols-8 xl:grid-cols-8 items-center gap-4 mb-4">
-                        <div className="col-span-1">
-                          <span className="bg-yellow-100 text-black-800 py-1 px-3 rounded-full font-medium">
-                            #{index + 1}
-                          </span>
-                        </div>
-                        <div className="col-span-3 flex items-center gap-4 justify-center">
-                          <div>
-                            <h3 className="font-bold">{categories.find(cat => cat.id === item.category)?.name || 'N/A'}</h3>
-                          </div>
-                        </div>
-                        <div className="col-span-2 flex items-center gap-4 justify-end">
-                          <div>
-                            <p className="text-gray-500">L {item.total_mes_actual.toLocaleString('es-HN', {minimumFractionDigits: 2})}</p>
-                          </div>
-                        </div>
-                        <div className="col-span-2 flex items-center gap-4 justify-end">
-                          <div>
-                            <p className="text-gray-500">
-                              {((item.total_mes_actual/totalNeto)*100).toFixed(2)}%
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div key="default" className="text-gray-500">No hay categorías disponibles.</div>
-                  )}
                 </div>
               </div>
             </section>
