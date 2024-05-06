@@ -1,0 +1,192 @@
+-- 1. 	Liste todos los clientes (res.partner) que no tienen órdenes de venta (sale.order)
+
+SELECT id, name, * 
+FROM res_partner
+WHERE id NOT IN (SELECT partner_id FROM sale_order)
+
+-- 2. 	Encuentre todos los clientes que no tienen identidad (vat) y actualicelos agregándoles el texto
+--		“NO DISPONIBLE” como identidad.
+
+SELECT id, name, vat
+FROM res_partner
+WHERE vat IS NULL
+
+UPDATE res_partner
+SET vat = 'NO DISPONIBLE'
+WHERE vat IS NULL
+
+SELECT id, name, vat
+FROM res_partner
+-- WHERE vat = 'NO DISPONIBLE'
+
+-- 3.	Agregue una columna “puntos” a res.partner
+
+ALTER TABLE res_partner
+ADD COLUMN puntos INTEGER
+
+SELECT id, name, puntos
+FROM res_partner
+
+-- 4. 	Actualice la tabla res.partner; calculando la cantidad de puntos ganados por los clientes 
+-- 		y guardandolos en la columna puntos recién creada. Para el cálculo de puntos; use la siguiente fórmula:
+-- 		el 10% del monto antes de impuesto de las órdenes de venta (sale.order) correspondiente a cada cliente.
+
+SELECT * FROM sale_order
+SELECT * FROM res_partner
+
+SELECT rp.id, rp.name, so.amount_untaxed, rp.puntos
+FROM res_partner AS rp
+JOIN sale_order so ON so.partner_id = rp.id
+
+UPDATE res_partner
+SET puntos = COALESCE((
+	SELECT SUM((amount_untaxed * 0.10)) 
+	FROM sale_order
+	WHERE partner_id = res_partner.id
+), 0);
+
+-- 5.	Para una orden (sale.order) que tenga impuestos; vía sql quítele los impuestos; 
+-- 		Confirme, revisando la interfaz web; que realmente se hayan quitado los impuestos. 
+
+SELECT sol.order_id, amount_tax, * 
+FROM sale_order so
+JOIN sale_order_line sol ON sol.order_id = so.id
+WHERE sol.order_id = 7
+
+UPDATE sale_order
+SET amount_tax = 200
+WHERE id = 7
+
+-- 6.	Para una orden (sale.order) que no tenga impuestos; vía sql agregale los impuestos; 
+--	 	Confirme, revisando la interfaz web; que realmente se hayan agregado los impuestos.
+
+SELECT sol.order_id, amount_tax, * 
+FROM sale_order so
+JOIN sale_order_line sol ON sol.order_id = so.id
+WHERE sol.order_id = 7
+
+UPDATE sale_order
+SET amount_tax = 0
+WHERE id = 7
+
+-- 7.	Para una orden (sale.order); cambie la moneda. Asegurese en la interfaz web; que realmente cambió la moneda.
+
+UPDATE sale_order
+SET currency_id = (SELECT id FROM res_currency WHERE name = 'USD')
+WHERE id = 7;
+
+-- 8. 	Liste todos los productos (product.product o product.template); que no tienen impuestos
+
+SELECT *
+FROM product_template
+WHERE id IN (
+    SELECT prod_id
+    FROM product_taxes_rel
+)
+
+-- 9.	Liste todos los productos que no tienen ningún tipo de movimiento. 
+-- 		Es decir solo está creado el producto pero no se ha comprado, 
+--		ni se ha vendido (stock.picking, stock.move.line)
+
+
+SELECT *
+FROM product_template
+WHERE id NOT IN (
+    SELECT product_id
+    FROM stock_move
+) AND id NOT IN (
+    SELECT product_id
+    FROM stock_move_line
+)
+
+-- 10.	Busque cual es el producto más vendido
+
+SELECT pt.id AS product_id,
+       pt.name AS product_name,
+       SUM(sol.product_uom_qty) AS total_quantity_sold
+FROM sale_order_line sol
+JOIN product_product pp ON sol.product_id = pp.id
+JOIN product_template pt ON pp.product_tmpl_id = pt.id
+GROUP BY pt.id, pt.name
+ORDER BY total_quantity_sold DESC
+LIMIT 1;
+
+-- 11.	Busque cual es el segundo producto más vendido
+
+SELECT pt.id AS product_id,
+       pt.name AS product_name,
+       SUM(sol.product_uom_qty) AS total_quantity_sold
+FROM sale_order_line sol
+JOIN product_product pp ON sol.product_id = pp.id
+JOIN product_template pt ON pp.product_tmpl_id = pt.id
+WHERE pt.id NOT IN (
+    SELECT pt.id
+    FROM sale_order_line sol
+    JOIN product_product pp ON sol.product_id = pp.id
+    JOIN product_template pt ON pp.product_tmpl_id = pt.id
+    GROUP BY pt.id
+    ORDER BY SUM(sol.product_uom_qty) DESC
+    LIMIT 1
+)
+GROUP BY pt.id, pt.name
+ORDER BY total_quantity_sold DESC
+LIMIT 1;
+
+-- 12.	Dado un producto en product.template; y el movimiento de este en stock.move.line; 
+--		haga una consulta en la que agregue una columna; que ponga la cantidad con signo: (
+--		positivo cuando usted considere que es un ingreso de mercadería y negativo cuando 
+--		usted considere que es una salida de mercadería). 
+
+SELECT
+    pt.id AS product_id,
+    pt.name AS product_name,
+    sml.qty_done AS cantidad,
+    CASE
+        WHEN sm.location_dest_id = sml.location_id THEN sml.qty_done
+        ELSE -sml.qty_done
+    END AS cantidad_con_signo
+FROM
+    product_template pt
+JOIN
+    product_product pp ON pt.id = pp.product_tmpl_id
+JOIN
+    stock_move sm ON pp.id = sm.product_id
+JOIN
+    stock_move_line sml ON sm.id = sml.move_id
+WHERE
+    pt.id = 20;
+	
+-- 13.	Usando el resultado del ejercicio anterior; ya sea como una vista o una tabla dinámica; 
+--		muestra la cantidad actual de los productos
+
+-- Crear una tabla temporal con los resultados del ejercicio anterior
+CREATE TEMP TABLE productos_movimientos AS
+SELECT
+    pt.id AS product_id,
+    pt.name AS product_name,
+    sml.qty_done AS cantidad,
+    CASE
+        WHEN sm.location_dest_id = sml.location_id THEN sml.qty_done
+        ELSE -sml.qty_done
+    END AS cantidad_con_signo
+FROM
+    product_template pt
+JOIN
+    product_product pp ON pt.id = pp.product_tmpl_id
+JOIN
+    stock_move sm ON pp.id = sm.product_id
+JOIN
+    stock_move_line sml ON sm.id = sml.move_id
+WHERE
+    pt.id = 20;
+
+-- Calcular la cantidad actual de los productos
+SELECT
+    product_id,
+    product_name,
+    SUM(cantidad_con_signo) AS cantidad_actual
+FROM
+    productos_movimientos
+GROUP BY
+    product_id,
+    product_name;
