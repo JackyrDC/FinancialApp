@@ -46,7 +46,7 @@ En la parte inferior, se presenta un apartado de categorías y otro de Transacci
 ![](https://raw.githubusercontent.com/JackyrDC/FinancialApp/961e33ee12caafafa3244c4dc576bee4af7e5ee0/imagenes/ca-re.png)
 
 Vídeo de apoyo:
-[Dashboard](https://drive.google.com/file/d/1o3aHFZplxBGoe2FqO8M_xZzOYe5IDQ5Z/view?t=22 "Dashboard")
+[Dashboard](https://drive.google.com/file/d/14zdWK1IUy8qmW84CgPyElk59oM0p2Pf7/view?usp=sharing "Dashboard")
 
 # Historial
 Debajo del panel de control, encontramos el Historial, donde se presenta de manera completa toda la información de las transacciones realizadas. Estas transacciones se almacenan en una tabla ordenada de forma que sea fácil de entender.
@@ -66,7 +66,7 @@ El Historial cuenta con diversas herramientas de filtrado para facilitar la bús
 ![](https://raw.githubusercontent.com/JackyrDC/FinancialApp/961e33ee12caafafa3244c4dc576bee4af7e5ee0/imagenes/filtros.png)
 
 Vídeo de apoyo:
-[Historial](https://drive.google.com/file/d/1o3aHFZplxBGoe2FqO8M_xZzOYe5IDQ5Z/view?t=2 "Historial")
+[Historial](https://drive.google.com/file/d/1I3W4yj9X3pbIoyETBAcFjqMOuadAXkWG/view?usp=sharing "Historial")
 
 # Reportes
 En esta sección se almacena toda la información con gráficos y notas para que el usuario pueda realizar filtros por mes, año y días específicos. Además, se proporciona la capacidad de visualizar qué categoría ha tenido más ingresos por mes y por año, junto con un balance anual. Esta funcionalidad permite al usuario analizar de manera detallada su historial financiero y obtener insights valiosos sobre sus patrones de gasto y ingresos a lo largo del tiempo.
