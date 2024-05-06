@@ -12,7 +12,7 @@ Utilizamos Pocket Base (PB), una herramienta de base de datos simple que ofrece 
 
 ![](https://raw.githubusercontent.com/JackyrDC/FinancialApp/main/imagenes/pb.png)
 
-El entorno de producción de la base de datos está alojado en el servicio pockethost, lo que nos permitió trabajar de manera remota sin necesidad de configurar varios servidores de manra local. 
+El entorno de producción de la base de datos está alojado en el servicio pockethost, lo que nos permitió trabajar de manera remota sin necesidad de configurar varios servidores de manera local. 
 
 ### Inicio de Sesión:
 Hemos implementado un proceso de inicio de sesión amigable y sencillo, con una imagen dinámica. Utilizamos Auth2 para permitir el inicio de sesión con Google, así como el registro mediante correo electrónico y contraseña.
@@ -66,7 +66,7 @@ El Historial cuenta con diversas herramientas de filtrado para facilitar la bús
 ![](https://raw.githubusercontent.com/JackyrDC/FinancialApp/961e33ee12caafafa3244c4dc576bee4af7e5ee0/imagenes/filtros.png)
 
 Vídeo de apoyo:
-[Historial](http://https://drive.google.com/file/d/1o3aHFZplxBGoe2FqO8M_xZzOYe5IDQ5Z/view?t=2 "Historial")
+[Historial](https://drive.google.com/file/d/1o3aHFZplxBGoe2FqO8M_xZzOYe5IDQ5Z/view?t=2 "Historial")
 
 # Reportes
 En esta sección se almacena toda la información con gráficos y notas para que el usuario pueda realizar filtros por mes, año y días específicos. Además, se proporciona la capacidad de visualizar qué categoría ha tenido más ingresos por mes y por año, junto con un balance anual. Esta funcionalidad permite al usuario analizar de manera detallada su historial financiero y obtener insights valiosos sobre sus patrones de gasto y ingresos a lo largo del tiempo.
