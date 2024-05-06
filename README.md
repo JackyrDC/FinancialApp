@@ -12,6 +12,8 @@ Utilizamos Pocket Base (PB), una herramienta de base de datos simple que ofrece 
 
 ![](https://raw.githubusercontent.com/JackyrDC/FinancialApp/main/imagenes/pb.png)
 
+El entorno de producción de la base de datos está alojado en el servicio pockethost, lo que nos permitió trabajar de manera remota sin necesidad de configurar varios servidores de manra local. 
+
 ### Inicio de Sesión:
 Hemos implementado un proceso de inicio de sesión amigable y sencillo, con una imagen dinámica. Utilizamos Auth2 para permitir el inicio de sesión con Google, así como el registro mediante correo electrónico y contraseña.
 
