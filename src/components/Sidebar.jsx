@@ -61,12 +61,6 @@ const Sidebar = () => {
               <RiFileCopyLine /> Historial
             </a>
             <a
-              href="/reports"
-              className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
-            >
-              <RiPieChartLine /> Reportes
-            </a>
-            <a
               href="" onClick={() => handleLogout()}
               className="flex items-center gap-4 text-white py-2 px-4 rounded-xl hover:bg-primary-900/50 transition-colors"
             >
