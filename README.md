@@ -1,5 +1,5 @@
 # App Financiera 
-## Introduccion
+## Introducción
 Esta aplicación web ofrece una solución integral para el control personal de las finanzas, permitiendo a los usuarios gestionar sus ingresos y egresos de manera eficiente. Con una variedad de funciones, incluyendo gráficos intuitivos, categorización detallada, registros de transacciones recientes, historial completo y generación de reportes, la aplicación simplifica el acceso a información detallada. Estas herramientas están diseñadas para empoderar a los usuarios en la toma de decisiones financieras informadas y facilitar una gestión más efectiva de sus recursos económicos.
 
 Documentación Completa:
