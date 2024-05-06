@@ -72,10 +72,10 @@ Vídeo de apoyo:
 En esta sección se almacena toda la información con gráficos y notas para que el usuario pueda realizar filtros por mes, año y días específicos. Además, se proporciona la capacidad de visualizar qué categoría ha tenido más ingresos por mes y por año, junto con un balance anual. Esta funcionalidad permite al usuario analizar de manera detallada su historial financiero y obtener insights valiosos sobre sus patrones de gasto y ingresos a lo largo del tiempo.
 
 
-##Instalación
+## Instalación
 Para probar la aplicación, tienes dos opcioes
 
-###1. Clonar el repositorio
+### 1. Clonar el repositorio
 
 Para esta opción siga los siguientes pasos:
   1. Abra su terminal y copie `git clone https://github.com/JackyrDC/FinancialApp.git`
@@ -85,6 +85,6 @@ Para esta opción siga los siguientes pasos:
   5. En su navegador, ingrese la direccion ` http://localhost:5173/`
 
 
-###2. Visitar nuestra página web
+### 2. Visitar nuestra página web
 
 Nuestra aplicación ya funciona en un servidor de producción. puede visitarlo [aquí](https://personalfinace.netlify.app/history)
