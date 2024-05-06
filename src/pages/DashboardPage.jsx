@@ -151,7 +151,7 @@ export const DashboardPage = () => {
                       <div className="col-span-2 flex items-center gap-4 justify-end">
                         <div>
                           <p className="text-gray-500">
-                            {(category.total_mes_actual / totalNeto * 100).toFixed(2)}%
+                            {(category.total_mes_actual/egresos*100).toFixed(2)}%
                           </p>
                         </div>
                       </div>
